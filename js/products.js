@@ -111,13 +111,355 @@ class ProductGenerator {
                     'Shampoo', 'Soap', 'Feminine Hygiene', 'Cotton Swabs', 'Dental Floss'
                 ]
             },
-            'home-kitchen': {
-                priceRange: [15, 300],
-                stockRange: [5, 150],
+            'womens-clothing': {
+                priceRange: [25, 200],
+                stockRange: [8, 80],
+                ratingBase: 4.1,
+                products: [
+                    'Summer Dress', 'Blouse', 'Skirt', 'Cardigan', 'Jeans',
+                    'Sweater', 'Jacket', 'Tops', 'Leggings', 'Coat'
+                ]
+            },
+            'womens-shoes': {
+                priceRange: [40, 300],
+                stockRange: [5, 50],
+                ratingBase: 4.3,
+                products: [
+                    'High Heels', 'Sneakers', 'Boots', 'Sandals', 'Flats',
+                    'Loafers', 'Wedges', 'Ankle Boots', 'Ballet Flats', 'Espadrilles'
+                ]
+            },
+            'womens-jewelry': {
+                priceRange: [20, 500],
+                stockRange: [10, 30],
+                ratingBase: 4.4,
+                products: [
+                    'Necklace', 'Earrings', 'Bracelet', 'Ring', 'Anklet',
+                    'Brooch', 'Pendant', 'Charm Bracelet', 'Hoop Earrings', 'Statement Necklace'
+                ]
+            },
+            'womens-watches': {
+                priceRange: [50, 1000],
+                stockRange: [5, 20],
+                ratingBase: 4.5,
+                products: [
+                    'Analog Watch', 'Digital Watch', 'Smart Watch', 'Dress Watch', 'Casual Watch',
+                    'Sport Watch', 'Luxury Watch', 'Minimalist Watch', 'Gold Watch', 'Leather Watch'
+                ]
+            },
+            'womens-handbags': {
+                priceRange: [30, 800],
+                stockRange: [5, 25],
+                ratingBase: 4.3,
+                products: [
+                    'Tote Bag', 'Crossbody Bag', 'Clutch', 'Shoulder Bag', 'Backpack',
+                    'Wristlet', 'Satchel', 'Hobo Bag', 'Bucket Bag', 'Envelope Clutch'
+                ]
+            },
+            'womens-accessories': {
+                priceRange: [10, 150],
+                stockRange: [15, 100],
+                ratingBase: 4.2,
+                products: [
+                    'Sunglasses', 'Hat', 'Scarf', 'Belt', 'Gloves',
+                    'Hair Accessories', 'Keychain', 'Phone Case', 'Wallet', 'Umbrella'
+                ]
+            },
+            'womens-accessories': {
+                priceRange: [10, 150],
+                stockRange: [15, 100],
+                ratingBase: 4.2,
+                products: [
+                    'Sunglasses', 'Hat', 'Scarf', 'Belt', 'Gloves',
+                    'Hair Accessories', 'Keychain', 'Phone Case', 'Wallet', 'Umbrella'
+                ]
+            },
+            'kitchen-dining': {
+                priceRange: [15, 200],
+                stockRange: [10, 100],
                 ratingBase: 4.0,
                 products: [
-                    'Coffee Maker', 'Blender', 'Cookware Set', 'Dinner Plates', 'Mugs',
-                    'Cutting Board', 'Kitchen Towels', 'Storage Containers', 'Utensil Set', 'Baking Pan'
+                    'Dinner Plates', 'Bowls', 'Mugs', 'Glasses', 'Silverware Set',
+                    'Serving Platters', 'Salad Bowl', 'Pitcher', 'Teapot', 'Cutlery'
+                ]
+            },
+            'kitchen': {
+                priceRange: [20, 300],
+                stockRange: [5, 50],
+                ratingBase: 4.1,
+                products: [
+                    'Blender', 'Coffee Maker', 'Toaster', 'Microwave', 'Stand Mixer',
+                    'Food Processor', 'Air Fryer', 'Slow Cooker', 'Pressure Cooker', 'Dishwasher'
+                ]
+            },
+            'dining-room': {
+                priceRange: [50, 800],
+                stockRange: [2, 20],
+                ratingBase: 4.2,
+                products: [
+                    'Dining Table', 'Dining Chairs', 'Sideboard', 'China Cabinet', 'Bar Cart',
+                    'Dining Bench', 'Table Linens', 'Placemats', 'Napkins', 'Table Runner'
+                ]
+            },
+            'pantry': {
+                priceRange: [10, 100],
+                stockRange: [20, 150],
+                ratingBase: 3.9,
+                products: [
+                    'Storage Containers', 'Canister Set', 'Spice Rack', 'Pantry Organizer', 'Food Storage Bags',
+                    'Mason Jars', 'Bread Box', 'Cookie Jar', 'Oil Dispenser', 'Sugar Bowl'
+                ]
+            },
+            'great-room': {
+                priceRange: [100, 2000],
+                stockRange: [1, 10],
+                ratingBase: 4.3,
+                products: [
+                    'Sectional Sofa', 'Coffee Table', 'TV Stand', 'Bookshelf', 'Area Rug',
+                    'Floor Lamp', 'Throw Pillows', 'Wall Art', 'Entertainment Center', 'Ottoman'
+                ]
+            },
+            'breakfast-nook': {
+                priceRange: [30, 500],
+                stockRange: [5, 30],
+                ratingBase: 4.1,
+                products: [
+                    'Breakfast Bar', 'Bar Stools', 'Small Table', 'Corner Bench', 'Breakfast Set',
+                    'Counter Stools', 'Bistro Set', 'Compact Dining', 'Wall Shelf', 'Pendant Light'
+                ]
+            },
+            'living': {
+                priceRange: [50, 1500],
+                stockRange: [2, 25],
+                ratingBase: 4.2,
+                products: [
+                    'Sofa', 'Armchair', 'Side Table', 'Media Console', 'Bookcase',
+                    'Floor Lamp', 'Table Lamp', 'Wall Shelf', 'Decorative Pillow', 'Throw Blanket'
+                ]
+            },
+            'living-room': {
+                priceRange: [80, 2000],
+                stockRange: [1, 15],
+                ratingBase: 4.4,
+                products: [
+                    'Leather Sofa', 'Fabric Sofa', 'Recliner', 'Loveseat', 'Chaise Lounge',
+                    'Entertainment Center', 'Wall Unit', 'Console Table', 'Accent Chair', 'Ottoman'
+                ]
+            },
+            'family-room': {
+                priceRange: [60, 1200],
+                stockRange: [2, 20],
+                ratingBase: 4.1,
+                products: [
+                    'Sectional Sofa', 'Media Center', 'Game Table', 'Toy Storage', 'Bean Bag Chair',
+                    'Floor Cushions', 'Room Divider', 'Wall Decor', 'Shelving Unit', 'Storage Ottoman'
+                ]
+            },
+            'sunroom': {
+                priceRange: [40, 800],
+                stockRange: [3, 25],
+                ratingBase: 4.0,
+                products: [
+                    'Wicker Furniture', 'Outdoor Sofa', 'Sunroom Chairs', 'Plant Stand', 'Hanging Chair',
+                    'Daybed', 'Screened Porch Set', 'Patio Furniture', 'Garden Bench', 'Outdoor Rug'
+                ]
+            },
+            'bed-bath': {
+                priceRange: [20, 600],
+                stockRange: [5, 50],
+                ratingBase: 4.1,
+                products: [
+                    'Bedding Set', 'Towels', 'Bath Mat', 'Shower Curtain', 'Bathroom Accessories',
+                    'Laundry Basket', 'Storage Solutions', 'Decorative Items', 'Lighting', 'Rugs'
+                ]
+            },
+            'bathroom': {
+                priceRange: [15, 300],
+                stockRange: [10, 80],
+                ratingBase: 4.0,
+                products: [
+                    'Towel Set', 'Bath Mat', 'Shower Curtain', 'Bathroom Scale', 'Toilet Brush',
+                    'Soap Dispenser', 'Towel Rack', 'Bathroom Mirror', 'Storage Cabinet', 'Laundry Hamper'
+                ]
+            },
+            'powder-room': {
+                priceRange: [25, 400],
+                stockRange: [5, 30],
+                ratingBase: 4.2,
+                products: [
+                    'Vanity Sink', 'Mirror', 'Light Fixture', 'Towel Bar', 'Soap Dish',
+                    'Tissue Holder', 'Wastebasket', 'Decorative Accessories', 'Wall Art', 'Rug'
+                ]
+            },
+            'bedroom': {
+                priceRange: [30, 1000],
+                stockRange: [3, 25],
+                ratingBase: 4.3,
+                products: [
+                    'Bed Frame', 'Mattress', 'Bedding', 'Nightstand', 'Dresser',
+                    'Wardrobe', 'Bedroom Chair', 'Decorative Pillows', 'Bedspread', 'Curtains'
+                ]
+            },
+            'storage-closet': {
+                priceRange: [20, 500],
+                stockRange: [5, 40],
+                ratingBase: 4.0,
+                products: [
+                    'Closet Organizer', 'Storage Bins', 'Shelving Unit', 'Hanging Organizer', 'Shoe Rack',
+                    'Jewelry Box', 'Storage Ottoman', 'Under Bed Storage', 'Wall Shelves', 'Coat Rack'
+                ]
+            },
+            'baby-kids': {
+                priceRange: [10, 200],
+                stockRange: [10, 100],
+                ratingBase: 4.2,
+                products: [
+                    'Crib', 'Changing Table', 'Nursery Furniture', 'Kids Bedding', 'Toy Storage',
+                    'Bookshelf', 'Desk', 'Chair', 'Decor', 'Safety Items'
+                ]
+            },
+            'utility': {
+                priceRange: [25, 400],
+                stockRange: [5, 30],
+                ratingBase: 3.8,
+                products: [
+                    'Washer', 'Dryer', 'Laundry Supplies', 'Cleaning Equipment', 'Storage Solutions',
+                    'Utility Sink', 'Tool Storage', 'Work Bench', 'Garage Organization', 'Safety Equipment'
+                ]
+            },
+            'laundry': {
+                priceRange: [20, 300],
+                stockRange: [5, 25],
+                ratingBase: 4.0,
+                products: [
+                    'Washing Machine', 'Dryer', 'Laundry Basket', 'Detergent Dispenser', 'Ironing Board',
+                    'Clothes Rack', 'Laundry Sorter', 'Drying Rack', 'Lint Remover', 'Fabric Softener'
+                ]
+            },
+            'garage': {
+                priceRange: [30, 600],
+                stockRange: [3, 20],
+                ratingBase: 4.1,
+                products: [
+                    'Garage Door', 'Storage System', 'Work Bench', 'Tool Chest', 'Shelving',
+                    'Bike Rack', 'Lawn Equipment Storage', 'Pegboard', 'Hooks', 'Cabinets'
+                ]
+            },
+            'mudroom': {
+                priceRange: [15, 250],
+                stockRange: [5, 40],
+                ratingBase: 4.0,
+                products: [
+                    'Mudroom Bench', 'Coat Rack', 'Shoe Storage', 'Entryway Organizer', 'Boot Tray',
+                    'Wall Hooks', 'Storage Cubby', 'Laundry Drop Zone', 'Pet Supplies Station', 'Decorative Items'
+                ]
+            },
+            'outdoor-exterior': {
+                priceRange: [20, 800],
+                stockRange: [2, 30],
+                ratingBase: 4.1,
+                products: [
+                    'Patio Furniture', 'Outdoor Lighting', 'Garden Tools', 'Landscaping Supplies', 'Outdoor Decor',
+                    'Grills', 'Outdoor Kitchen', 'Swimming Pool Equipment', 'Driveway Solutions', 'Exterior Paint'
+                ]
+            },
+            'landscape': {
+                priceRange: [10, 200],
+                stockRange: [10, 100],
+                ratingBase: 4.0,
+                products: [
+                    'Garden Hose', 'Lawn Mower', 'Gardening Tools', 'Plants', 'Fertilizer',
+                    'Mulch', 'Garden Decor', 'Bird Feeders', 'Outdoor Fountains', 'Garden Statues'
+                ]
+            },
+            'patio': {
+                priceRange: [50, 600],
+                stockRange: [2, 15],
+                ratingBase: 4.2,
+                products: [
+                    'Patio Set', 'Outdoor Dining', 'Patio Umbrella', 'Outdoor Rug', 'Patio Heater',
+                    'Patio Furniture Covers', 'String Lights', 'Outdoor Speakers', 'Fire Pit', 'Planters'
+                ]
+            },
+            'deck': {
+                priceRange: [30, 400],
+                stockRange: [3, 20],
+                ratingBase: 4.1,
+                products: [
+                    'Deck Furniture', 'Deck Railings', 'Deck Lighting', 'Outdoor Carpeting', 'Deck Boxes',
+                    'Planter Boxes', 'Deck Stains', 'Outdoor Cushions', 'Hanging Chairs', 'Deck Accessories'
+                ]
+            },
+            'pool': {
+                priceRange: [25, 500],
+                stockRange: [5, 30],
+                ratingBase: 4.3,
+                products: [
+                    'Pool Cleaner', 'Pool Chemicals', 'Pool Toys', 'Pool Furniture', 'Pool Covers',
+                    'Pool Lights', 'Pool Heaters', 'Pool Pumps', 'Ladders', 'Safety Equipment'
+                ]
+            },
+            'backyard': {
+                priceRange: [15, 300],
+                stockRange: [5, 50],
+                ratingBase: 4.0,
+                products: [
+                    'Outdoor Play Equipment', 'Garden Shed', 'Greenhouse', 'Compost Bin', 'Rain Barrel',
+                    'Outdoor Storage', 'Garden Cart', 'Wheelbarrow', 'Outdoor Benches', 'Garden Arbors'
+                ]
+            },
+            'porch': {
+                priceRange: [20, 250],
+                stockRange: [5, 40],
+                ratingBase: 4.1,
+                products: [
+                    'Porch Swing', 'Porch Furniture', 'Doormats', 'Welcome Mats', 'Porch Lights',
+                    'Wind Chimes', 'Porch Rugs', 'Planters', 'Rocking Chairs', 'Gliders'
+                ]
+            },
+            'exterior': {
+                priceRange: [10, 150],
+                stockRange: [10, 80],
+                ratingBase: 3.9,
+                products: [
+                    'Exterior Paint', 'House Numbers', 'Mailbox', 'Door Hardware', 'Siding',
+                    'Gutters', 'Roofing Supplies', 'Windows', 'Doors', 'Exterior Lighting'
+                ]
+            },
+            'outdoor-kitchen': {
+                priceRange: [100, 2000],
+                stockRange: [1, 10],
+                ratingBase: 4.4,
+                products: [
+                    'Outdoor Grill', 'Smoker', 'Outdoor Refrigerator', 'Pizza Oven', 'Outdoor Sink',
+                    'Outdoor Cabinets', 'Countertops', 'Outdoor Appliances', 'BBQ Tools', 'Outdoor Dining'
+                ]
+            },
+            'front-yard': {
+                priceRange: [15, 200],
+                stockRange: [5, 50],
+                ratingBase: 4.0,
+                products: [
+                    'Front Door Decor', 'House Numbers', 'Mailbox', 'Welcome Sign', 'Flower Pots',
+                    'Garden Statues', 'Bird Baths', 'Sundial', 'Front Yard Lighting', 'Address Plaques'
+                ]
+            },
+            'driveway': {
+                priceRange: [20, 300],
+                stockRange: [3, 25],
+                ratingBase: 4.0,
+                products: [
+                    'Driveway Sealant', 'Pavers', 'Driveway Markers', 'Snow Removal Tools', 'Driveway Cleaner',
+                    'Oil Stain Remover', 'Driveway Repair Kit', 'Gravel', 'Driveway Edging', 'Driveway Lights'
+                ]
+            },
+            'poolhouse': {
+                priceRange: [50, 800],
+                stockRange: [2, 15],
+                ratingBase: 4.2,
+                products: [
+                    'Pool House Furniture', 'Outdoor Shower', 'Changing Room', 'Storage Solutions', 'Decor',
+                    'Lighting', 'Rugs', 'Artwork', 'Plants', 'Accessories'
                 ]
             },
             'footwear': {

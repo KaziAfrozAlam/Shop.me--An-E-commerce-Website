@@ -160,7 +160,7 @@ function renderProducts() {
                 <div class="item">
                     <div class="media">
                         <div class="thumbnail object-cover">
-                            <a href="page-single.html?id=${product.id}">
+                            <a href="pages/page-single.html?id=${product.id}">
                                 <img src="${product.image}" alt="${product.title}">
                             </a>
                         </div>
@@ -178,7 +178,7 @@ function renderProducts() {
                             <div class="stars"></div>
                             <span class="mini-text">(${product.rating.count})</span>
                         </div>
-                        <h3><a href="page-single.html?id=${product.id}">${product.title}</a></h3>
+                        <h3><a href="pages/page-single.html?id=${product.id}">${product.title}</a></h3>
                         <div class="price">
                             <span class="current">$${product.price}</span>
                             <span class="normal mini-text">$300</span>
@@ -208,7 +208,7 @@ function renderProducts() {
                 <div class="item">
                     <div class="media">
                         <div class="thumbnail object-cover">
-                            <a href="page-single.html?id=${product.id}">
+                            <a href="pages/page-single.html?id=${product.id}">
                                 <img src="${product.image}" alt="${product.title}">
                             </a>
                         </div>
@@ -222,7 +222,7 @@ function renderProducts() {
                         <div class="discount circle flexcenter"><span>25%</span></div>
                     </div>
                     <div class="content">
-                        <h3><a href="page-single.html?id=${product.id}">${product.title}</a></h3>
+                        <h3><a href="pages/page-single.html?id=${product.id}">${product.title}</a></h3>
                         <div class="price">
                             <span class="current">$${product.price}</span>
                             <span class="normal mini-text">$300</span>
@@ -253,7 +253,7 @@ function renderProducts() {
                 <div class="item">
                     <div class="media">
                         <div class="thumbnail object-cover">
-                            <a href="page-single.html?id=${product.id}">
+                            <a href="pages/page-single.html?id=${product.id}">
                                 <img src="${product.image}" alt="${product.title}">
                             </a>
                         </div>
@@ -267,7 +267,7 @@ function renderProducts() {
                         <div class="discount circle flexcenter"><span>25%</span></div>
                     </div>
                     <div class="content">
-                        <h3><a href="page-single.html?id=${product.id}">${product.title}</a></h3>
+                        <h3><a href="pages/page-single.html?id=${product.id}">${product.title}</a></h3>
                         <div class="price">
                             <span class="current">$${product.price}</span>
                             <span class="normal mini-text">$300</span>
@@ -311,10 +311,10 @@ function updateCartDisplay() {
             const itemHTML = `
                 <div class="item">
                     <div class="thumbnail object-cover">
-                        <a href="page-single.html?id=${item.id}"><img src="${item.image}" alt="${item.title}"></a>
+                        <a href="pages/page-single.html?id=${item.id}"><img src="${item.image}" alt="${item.title}"></a>
                     </div>
                     <div class="item-content">
-                        <p><a href="page-single.html?id=${item.id}">${item.title}</a></p>
+                        <p><a href="pages/page-single.html?id=${item.id}">${item.title}</a></p>
                         <span class="price">$${item.price}</span>
                         <span class="qty">Qty: ${item.quantity}</span>
                     </div>
@@ -401,7 +401,7 @@ function renderSingleProduct() {
 }
 
 // Call renderSingleProduct if on single page
-if (window.location.pathname.includes('page-single.html')) {
+if (window.location.pathname.includes('pages/page-single.html')) {
     // Wait for products to load
     setTimeout(renderSingleProduct, 1000);
 }
@@ -417,12 +417,12 @@ function renderCart() {
             const rowHTML = `
                 <tr>
                     <td class="thumbnail-img">
-                        <a href="page-single.html?id=${item.id}">
+                        <a href="pages/page-single.html?id=${item.id}">
                             <img src="${item.image}" alt="${item.title}">
                         </a>
                     </td>
                     <td class="name-pr">
-                        <a href="page-single.html?id=${item.id}">${item.title}</a>
+                        <a href="pages/page-single.html?id=${item.id}">${item.title}</a>
                     </td>
                     <td class="price-pr">
                         <span>$${item.price}</span>
@@ -465,7 +465,7 @@ function removeFromCart(index) {
 }
 
 // Call renderCart if on cart page
-if (window.location.pathname.includes('page-cart.html')) {
+if (window.location.pathname.includes('pages/page-cart.html')) {
     setTimeout(renderCart, 100);
 }
 
@@ -522,6 +522,218 @@ function renderCheckout() {
 }
 
 // Call renderCheckout if on checkout page
-if (window.location.pathname.includes('page-checkout.html')) {
+if (window.location.pathname.includes('pages/page-checkout.html')) {
     setTimeout(renderCheckout, 100);
 }
+
+// AI Support Chatbot
+function initChatbot() {
+    // Create chatbot HTML
+    const chatbotHTML = `
+        <div id="chatbot-widget">
+            <div id="chatbot-button">
+                <i class="ri-chat-1-line"></i>
+            </div>
+            <div id="chatbot-container" style="display: none;">
+                <div id="chatbot-header">
+                    <span>AI Support</span>
+                    <button id="chatbot-close">&times;</button>
+                </div>
+                <div id="chatbot-messages"></div>
+                <div id="chatbot-input-container">
+                    <input type="text" id="chatbot-input" placeholder="Ask me anything...">
+                    <button id="chatbot-send"><i class="ri-send-plane-line"></i></button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Append to body
+    document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+
+    // Add styles
+    const style = document.createElement('style');
+    style.textContent = `
+        #chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+        }
+        #chatbot-button {
+            width: 60px;
+            height: 60px;
+            background: #007bff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        #chatbot-button:hover {
+            background: #0056b3;
+            transform: scale(1.1);
+        }
+        #chatbot-container {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        #chatbot-header {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+        .message.user {
+            background: #007bff;
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        .message.bot {
+            background: white;
+            color: black;
+            border: 1px solid #ddd;
+        }
+        #chatbot-input-container {
+            display: flex;
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #ddd;
+        }
+        #chatbot-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+        #chatbot-send {
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        @media (max-width: 480px) {
+            #chatbot-container {
+                width: 90vw;
+                height: 70vh;
+                bottom: 80px;
+                right: 5vw;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Event listeners
+    const button = document.getElementById('chatbot-button');
+    const container = document.getElementById('chatbot-container');
+    const close = document.getElementById('chatbot-close');
+    const input = document.getElementById('chatbot-input');
+    const send = document.getElementById('chatbot-send');
+    const messages = document.getElementById('chatbot-messages');
+
+    button.addEventListener('click', () => {
+        container.style.display = container.style.display === 'none' ? 'flex' : 'none';
+        if (container.style.display === 'flex' && messages.children.length === 0) {
+            addMessage('bot', 'Hello! I\'m your AI support assistant. How can I help you today?');
+        }
+    });
+
+    close.addEventListener('click', () => {
+        container.style.display = 'none';
+    });
+
+    send.addEventListener('click', sendMessage);
+    input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+
+    function sendMessage() {
+        const text = input.value.trim();
+        if (text) {
+            addMessage('user', text);
+            input.value = '';
+            // Simulate AI response
+            setTimeout(() => {
+                const response = getAIResponse(text);
+                addMessage('bot', response);
+            }, 1000);
+        }
+    }
+
+    function addMessage(sender, text) {
+        const message = document.createElement('div');
+        message.className = `message ${sender}`;
+        message.textContent = text;
+        messages.appendChild(message);
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    function getAIResponse(userMessage) {
+        const lowerMessage = userMessage.toLowerCase();
+        
+        // Simple keyword-based responses (simulating AI)
+        if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+            return 'Hello! Welcome to Shop.me. How can I assist you today?';
+        } else if (lowerMessage.includes('product') || lowerMessage.includes('item')) {
+            return 'We have a wide range of products including electronics, clothing, and home goods. You can browse our categories or search for specific items!';
+        } else if (lowerMessage.includes('order') || lowerMessage.includes('shipping')) {
+            return 'For order inquiries, please check your account dashboard. Shipping usually takes 3-5 business days.';
+        } else if (lowerMessage.includes('return') || lowerMessage.includes('refund')) {
+            return 'Our return policy allows returns within 30 days. Please contact support for assistance.';
+        } else if (lowerMessage.includes('price') || lowerMessage.includes('cost')) {
+            return 'Prices are listed on each product page. We offer competitive pricing and occasional discounts!';
+        } else if (lowerMessage.includes('contact') || lowerMessage.includes('support')) {
+            return 'You can reach our support team at support@shop.me or call us at 1-800-SHOP-ME.';
+        } else if (lowerMessage.includes('bye') || lowerMessage.includes('goodbye')) {
+            return 'Goodbye! Have a great day shopping with us!';
+        } else {
+            return 'I\'m here to help with any questions about our products, orders, or services. Could you please provide more details?';
+        }
+    }
+}
+
+// Initialize chatbot
+initChatbot();

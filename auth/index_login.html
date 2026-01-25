@@ -16,6 +16,13 @@
         </div>
         <div class="card">
             <h1>Sign in</h1>
+            <?php
+            session_start();
+            if (isset($_SESSION['error_message'])) {
+                echo '<div style="color: red; margin-bottom: 10px;">' . $_SESSION['error_message'] . '</div>';
+                unset($_SESSION['error_message']);
+            }
+            ?>
             <!-- Add the form tag and set the action attribute -->
             <form action="process_login.php" method="post">
                 <div class="form">
@@ -35,7 +42,7 @@
             <p>New to Shop.me?</p>
         </div>
         <div class="btn">
-            <a href="http://127.0.0.1:5501/Shop.me%20like%20login%20page/register%20and%20login%20form/register.html">
+            <a href="register.html">
             <button id="createAccountButton" type="button">Create your Shop.me account</button>
             </a>
         </div>

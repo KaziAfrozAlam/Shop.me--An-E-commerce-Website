@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Set a session timeout
         $_SESSION['last_activity'] = time();
 
-        header("Location: ../../../index.html"); // Redirect to main site
+        header("Location: ../index.html"); // Redirect to main site
         exit();
     } else {
         $_SESSION['error_message'] = "Invalid email/mobile or password";

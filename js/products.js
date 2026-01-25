@@ -75,6 +75,42 @@ class ProductGenerator {
                     'Nail Clippers', 'Hair Clippers', 'Straightener', 'Curling Iron', 'Mirror', 'Puff'
                 ]
             },
+            'skin-care': {
+                priceRange: [15, 120],
+                stockRange: [20, 150],
+                ratingBase: 4.3,
+                products: [
+                    'Facial Cleanser', 'Moisturizer', 'Face Serum', 'Sunscreen', 'Face Mask',
+                    'Toner', 'Eye Cream', 'Lip Balm', 'Body Lotion', 'Exfoliator'
+                ]
+            },
+            'foot-hand-care': {
+                priceRange: [8, 40],
+                stockRange: [30, 100],
+                ratingBase: 4.0,
+                products: [
+                    'Hand Cream', 'Foot Cream', 'Hand Soap', 'Cuticle Oil', 'Nail Oil',
+                    'Foot Soak', 'Hand Mask', 'Foot Mask', 'Callus Remover', 'Hand Sanitizer'
+                ]
+            },
+            'shave-hair-removal': {
+                priceRange: [5, 35],
+                stockRange: [40, 120],
+                ratingBase: 4.1,
+                products: [
+                    'Razor', 'Shaving Cream', 'Aftershave', 'Depilatory Cream', 'Wax Strips',
+                    'Hair Trimmer', 'Electric Razor', 'Shaving Brush', 'Pre-Shave Oil', 'Shave Gel'
+                ]
+            },
+            'personal-care': {
+                priceRange: [3, 25],
+                stockRange: [50, 200],
+                ratingBase: 4.2,
+                products: [
+                    'Toothbrush', 'Toothpaste', 'Mouthwash', 'Deodorant', 'Body Wash',
+                    'Shampoo', 'Soap', 'Feminine Hygiene', 'Cotton Swabs', 'Dental Floss'
+                ]
+            },
             'home-kitchen': {
                 priceRange: [15, 300],
                 stockRange: [5, 150],

@@ -151,6 +151,10 @@ function loadProducts() {
     else if (path.includes('hair-care.html')) currentCategory = 'hair-care';
     else if (path.includes('fragrance.html')) currentCategory = 'fragrance';
     else if (path.includes('tools-accessories.html')) currentCategory = 'tools-accessories';
+    else if (path.includes('skin-care.html')) currentCategory = 'skin-care';
+    else if (path.includes('foot-hand-care.html')) currentCategory = 'foot-hand-care';
+    else if (path.includes('shave-hair-removal.html')) currentCategory = 'shave-hair-removal';
+    else if (path.includes('personal-care.html')) currentCategory = 'personal-care';
     else if (path.includes('womens-fashion.html')) currentCategory = 'womens-clothing';
     else if (path.includes('mens-fashion.html')) currentCategory = 'mens-clothing';
     else if (path.includes('home-kitchen.html')) currentCategory = 'home-kitchen';

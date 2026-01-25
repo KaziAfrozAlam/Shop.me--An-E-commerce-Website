@@ -39,6 +39,42 @@ class ProductGenerator {
                     'Face Cream', 'Shampoo', 'Nail Polish', 'Makeup Brush Set', 'Sunscreen'
                 ]
             },
+            'makeup': {
+                priceRange: [8, 80],
+                stockRange: [15, 150],
+                ratingBase: 4.4,
+                products: [
+                    'Lipstick', 'Foundation', 'Mascara', 'Eyeshadow Palette', 'Blush',
+                    'Bronzer', 'Highlighter', 'Eyeliner', 'Brow Pencil', 'Setting Powder'
+                ]
+            },
+            'hair-care': {
+                priceRange: [12, 60],
+                stockRange: [20, 100],
+                ratingBase: 4.2,
+                products: [
+                    'Shampoo', 'Conditioner', 'Hair Oil', 'Hair Mask', 'Hair Serum',
+                    'Hair Spray', 'Styling Gel', 'Heat Protectant', 'Hair Color', 'Hair Brush'
+                ]
+            },
+            'fragrance': {
+                priceRange: [25, 150],
+                stockRange: [10, 80],
+                ratingBase: 4.5,
+                products: [
+                    'Eau de Parfum', 'Eau de Toilette', 'Body Mist', 'Perfume Oil',
+                    'Cologne', 'Body Spray', 'Scented Candle', 'Diffuser Oil', 'Perfume Set'
+                ]
+            },
+            'tools-accessories': {
+                priceRange: [5, 50],
+                stockRange: [25, 200],
+                ratingBase: 4.1,
+                products: [
+                    'Makeup Brush Set', 'Foundation Brush', 'Eyelash Curler', 'Tweezers',
+                    'Nail Clippers', 'Hair Clippers', 'Straightener', 'Curling Iron', 'Mirror', 'Puff'
+                ]
+            },
             'home-kitchen': {
                 priceRange: [15, 300],
                 stockRange: [5, 150],

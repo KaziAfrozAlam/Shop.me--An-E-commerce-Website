@@ -147,6 +147,10 @@ function loadProducts() {
     const path = window.location.pathname;
     if (path.includes('electronics.html')) currentCategory = 'electronics';
     else if (path.includes('beauty.html')) currentCategory = 'beauty';
+    else if (path.includes('makeup.html')) currentCategory = 'makeup';
+    else if (path.includes('hair-care.html')) currentCategory = 'hair-care';
+    else if (path.includes('fragrance.html')) currentCategory = 'fragrance';
+    else if (path.includes('tools-accessories.html')) currentCategory = 'tools-accessories';
     else if (path.includes('womens-fashion.html')) currentCategory = 'womens-clothing';
     else if (path.includes('mens-fashion.html')) currentCategory = 'mens-clothing';
     else if (path.includes('home-kitchen.html')) currentCategory = 'home-kitchen';

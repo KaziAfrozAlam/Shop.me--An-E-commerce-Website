@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Categories</title>
+</head>
+<body>
+    <h1>Testing New Categories</h1>
+    <div id="output"></div>
+    <script src="js/products.js"></script>
+    <script>
+        setTimeout(() => {
+            const output = document.getElementById('output');
+            const categories = Object.keys(productGenerator.categories);
+            output.innerHTML = '<h2>Available Categories:</h2><ul>';
+            categories.forEach(cat => {
+                const products = productGenerator.getProductsByCategory(cat);
+                output.innerHTML += `<li>${cat}: ${products.length} products</li>`;
+            });
+            output.innerHTML += '</ul>';
+
+            // Test new categories
+            const newCats = ['makeup', 'hair-care', 'fragrance', 'tools-accessories'];
+            output.innerHTML += '<h2>New Subcategories:</h2><ul>';
+            newCats.forEach(cat => {
+                const products = productGenerator.getProductsByCategory(cat);
+                output.innerHTML += `<li>${cat}: ${products.length} products</li>`;
+            });
+            output.innerHTML += '</ul>';
+        }, 100);
+    </script>
+</body>
+</html></content>
+<parameter name="filePath">/workspaces/Shop.me--An-E-commerce-Website/test-categories.html

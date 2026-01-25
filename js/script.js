@@ -138,11 +138,22 @@ document.querySelector(".modalclose").addEventListener("click", function () {
 // Fetch products from Fake Store API
 let allProducts = [];
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let currentCategory = null;
 
 async function fetchProducts() {
     try {
         const response = await fetch('https://fakestoreapi.com/products');
         allProducts = await response.json();
+        
+        // Determine current category based on page
+        const path = window.location.pathname;
+        if (path.includes('electronics.html')) currentCategory = 'electronics';
+        else if (path.includes('beauty.html')) currentCategory = 'jewelery';
+        else if (path.includes('womens-fashion.html')) currentCategory = "women's clothing";
+        else if (path.includes('mens-fashion.html')) currentCategory = "men's clothing";
+        else if (path.includes('all-departments.html')) currentCategory = null; // all
+        else currentCategory = null; // for other pages or non-API categories
+        
         renderProducts();
         updateCartDisplay();
     } catch (error) {
@@ -151,11 +162,18 @@ async function fetchProducts() {
 }
 
 function renderProducts() {
+    let productsToShow = currentCategory ? allProducts.filter(p => p.category === currentCategory) : allProducts;
+    
+    // If no products for category, show all or sample
+    if (productsToShow.length === 0 && currentCategory) {
+        productsToShow = allProducts.slice(0, 8); // fallback
+    }
+    
     // Render featured products
     const featuredContainer = document.querySelector('.products.main.flexwrap');
     if (featuredContainer) {
         featuredContainer.innerHTML = '';
-        allProducts.slice(0, 8).forEach(product => {
+        productsToShow.slice(0, 12).forEach(product => {
             const productHTML = `
                 <div class="item">
                     <div class="media">

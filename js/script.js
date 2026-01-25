@@ -323,7 +323,8 @@ function updateCartDisplay() {
     const miniCart = document.querySelector('.mini-cart .products');
     if (miniCart) {
         miniCart.innerHTML = '';
-        cart.forEach(item => {
+        const cartItems = cartManager.getCartItems();
+        cartItems.forEach(item => {
             const itemHTML = `
                 <div class="item">
                     <div class="thumbnail object-cover">
@@ -542,207 +543,277 @@ if (window.location.pathname.includes('pages/page-checkout.html')) {
 
 // AI Support Chatbot
 function initChatbot() {
-    // Create chatbot HTML
-    const chatbotHTML = `
-        <div id="chatbot-widget">
-            <div id="chatbot-button">
-                💬
-            </div>
-            <div id="chatbot-container" style="display: none;">
-                <div id="chatbot-header">
-                    <span>AI Support</span>
-                    <button id="chatbot-close">&times;</button>
-                </div>
-                <div id="chatbot-messages"></div>
-                <div id="chatbot-input-container">
-                    <input type="text" id="chatbot-input" placeholder="Ask me anything...">
-                    <button id="chatbot-send">Send</button>
-                </div>
-            </div>
-        </div>
-    `;
+    const chatbotToggle = document.getElementById('chatbot-toggle');
+    const chatbotContainer = document.getElementById('chatbot-container');
+    const chatbotClose = document.getElementById('chatbot-close');
+    const chatbotInput = document.getElementById('chatbot-input');
+    const chatbotSend = document.getElementById('chatbot-send');
+    const chatbotMessages = document.getElementById('chatbot-messages');
 
-    // Append to body
-    document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+    let isOpen = false;
 
-    // Add styles
-    const style = document.createElement('style');
-    style.textContent = `
-        #chatbot-widget {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            font-family: Arial, sans-serif;
-        }
-        #chatbot-button {
-            width: 60px;
-            height: 60px;
-            background: #007bff;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-        }
-        #chatbot-button:hover {
-            background: #0056b3;
-            transform: scale(1.1);
-        }
-        #chatbot-container {
-            position: absolute;
-            bottom: 80px;
-            right: 0;
-            width: 350px;
-            height: 500px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        #chatbot-header {
-            background: #007bff;
-            color: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #chatbot-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            background: #f8f9fa;
-        }
-        .message {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            max-width: 80%;
-        }
-        .message.user {
-            background: #007bff;
-            color: white;
-            align-self: flex-end;
-            margin-left: auto;
-        }
-        .message.bot {
-            background: white;
-            color: black;
-            border: 1px solid #ddd;
-        }
-        #chatbot-input-container {
-            display: flex;
-            padding: 15px;
-            background: white;
-            border-top: 1px solid #ddd;
-        }
-        #chatbot-input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            outline: none;
-        }
-        #chatbot-send {
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 10px 15px;
-            margin-left: 10px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        #chatbot-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        @media (max-width: 480px) {
-            #chatbot-container {
-                width: 90vw;
-                height: 70vh;
-                bottom: 80px;
-                right: 5vw;
-            }
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Event listeners
-    const button = document.getElementById('chatbot-button');
-    const container = document.getElementById('chatbot-container');
-    const close = document.getElementById('chatbot-close');
-    const input = document.getElementById('chatbot-input');
-    const send = document.getElementById('chatbot-send');
-    const messages = document.getElementById('chatbot-messages');
-
-    button.addEventListener('click', () => {
-        container.style.display = container.style.display === 'none' ? 'flex' : 'none';
-        if (container.style.display === 'flex' && messages.children.length === 0) {
-            addMessage('bot', 'Hello! I\'m your AI support assistant. How can I help you today?');
+    // Toggle chatbot
+    chatbotToggle.addEventListener('click', () => {
+        isOpen = !isOpen;
+        chatbotContainer.classList.toggle('active', isOpen);
+        if (isOpen && chatbotMessages.children.length === 1) {
+            // Focus input when opened
+            setTimeout(() => chatbotInput.focus(), 300);
         }
     });
 
-    close.addEventListener('click', () => {
-        container.style.display = 'none';
+    // Close chatbot
+    chatbotClose.addEventListener('click', () => {
+        isOpen = false;
+        chatbotContainer.classList.remove('active');
     });
 
-    send.addEventListener('click', sendMessage);
-    input.addEventListener('keypress', (e) => {
+    // Send message
+    chatbotSend.addEventListener('click', sendMessage);
+    chatbotInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') sendMessage();
     });
 
+    // Quick replies
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('quick-reply')) {
+            const reply = e.target.dataset.reply;
+            handleQuickReply(reply);
+        }
+    });
+
     function sendMessage() {
-        const text = input.value.trim();
+        const text = chatbotInput.value.trim();
         if (text) {
             addMessage('user', text);
-            input.value = '';
-            // Simulate AI response
-            setTimeout(() => {
-                const response = getAIResponse(text);
-                addMessage('bot', response);
-            }, 1000);
+            chatbotInput.value = '';
+            processUserMessage(text);
         }
     }
 
-    function addMessage(sender, text) {
-        const message = document.createElement('div');
-        message.className = `message ${sender}`;
-        message.textContent = text;
-        messages.appendChild(message);
-        messages.scrollTop = messages.scrollHeight;
+    function handleQuickReply(reply) {
+        let message = '';
+        switch (reply) {
+            case 'help':
+                message = 'I need help navigating the website';
+                break;
+            case 'products':
+                message = 'Help me find products';
+                break;
+            case 'cart':
+                message = 'I need help with my cart';
+                break;
+            case 'support':
+                message = 'I need customer support';
+                break;
+        }
+        addMessage('user', message);
+        processUserMessage(message);
     }
 
-    function getAIResponse(userMessage) {
-        const lowerMessage = userMessage.toLowerCase();
-        
-        // Simple keyword-based responses (simulating AI)
-        if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
-            return 'Hello! Welcome to Shop.me. How can I assist you today?';
-        } else if (lowerMessage.includes('product') || lowerMessage.includes('item')) {
-            return 'We have a wide range of products including electronics, clothing, and home goods. You can browse our categories or search for specific items!';
-        } else if (lowerMessage.includes('order') || lowerMessage.includes('shipping')) {
-            return 'For order inquiries, please check your account dashboard. Shipping usually takes 3-5 business days.';
-        } else if (lowerMessage.includes('return') || lowerMessage.includes('refund')) {
-            return 'Our return policy allows returns within 30 days. Please contact support for assistance.';
-        } else if (lowerMessage.includes('price') || lowerMessage.includes('cost')) {
-            return 'Prices are listed on each product page. We offer competitive pricing and occasional discounts!';
-        } else if (lowerMessage.includes('contact') || lowerMessage.includes('support')) {
-            return 'You can reach our support team at support@shop.me or call us at 1-800-SHOP-ME.';
-        } else if (lowerMessage.includes('bye') || lowerMessage.includes('goodbye')) {
-            return 'Goodbye! Have a great day shopping with us!';
-        } else {
-            return 'I\'m here to help with any questions about our products, orders, or services. Could you please provide more details?';
+    function addMessage(sender, text, showQuickReplies = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}-message`;
+
+        const avatarDiv = document.createElement('div');
+        avatarDiv.className = 'message-avatar';
+        avatarDiv.innerHTML = sender === 'bot' ? '<i class="ri-robot-line"></i>' : '<i class="ri-user-line"></i>';
+
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'message-content';
+
+        const textP = document.createElement('p');
+        textP.textContent = text;
+        contentDiv.appendChild(textP);
+
+        if (showQuickReplies && sender === 'bot') {
+            const quickRepliesDiv = document.createElement('div');
+            quickRepliesDiv.className = 'quick-replies';
+
+            const replies = getContextualQuickReplies(text);
+            replies.forEach(reply => {
+                const button = document.createElement('button');
+                button.className = 'quick-reply';
+                button.textContent = reply.text;
+                button.dataset.reply = reply.action;
+                quickRepliesDiv.appendChild(button);
+            });
+
+            contentDiv.appendChild(quickRepliesDiv);
         }
+
+        messageDiv.appendChild(avatarDiv);
+        messageDiv.appendChild(contentDiv);
+        chatbotMessages.appendChild(messageDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function processUserMessage(message) {
+        // Show typing indicator
+        showTypingIndicator();
+
+        // Simulate AI processing time
+        setTimeout(() => {
+            hideTypingIndicator();
+            const response = generateAIResponse(message);
+            addMessage('bot', response.response, response.showQuickReplies);
+        }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+    }
+
+    function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'message bot-message typing';
+        typingDiv.id = 'typing-indicator';
+
+        const avatarDiv = document.createElement('div');
+        avatarDiv.className = 'message-avatar';
+        avatarDiv.innerHTML = '<i class="ri-robot-line"></i>';
+
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'message-content';
+
+        const typingP = document.createElement('p');
+        typingP.innerHTML = '<span class="typing-dots"><span></span><span></span><span></span></span>';
+        contentDiv.appendChild(typingP);
+
+        typingDiv.appendChild(avatarDiv);
+        typingDiv.appendChild(contentDiv);
+        chatbotMessages.appendChild(typingDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function hideTypingIndicator() {
+        const typingIndicator = document.getElementById('typing-indicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
+        }
+    }
+
+    function generateAIResponse(message) {
+        const lowerMessage = message.toLowerCase();
+
+        // Navigation help
+        if (lowerMessage.includes('navigation') || lowerMessage.includes('find') || lowerMessage.includes('browse') || lowerMessage.includes('categories')) {
+            return {
+                response: "I'd be happy to help you navigate! You can browse our products by category using the menu at the top. We have sections for Electronics, Beauty, Fashion, Home & Kitchen, and more. Is there a specific category you're interested in?",
+                showQuickReplies: true
+            };
+        }
+
+        // Product search
+        if (lowerMessage.includes('product') || lowerMessage.includes('item') || lowerMessage.includes('search') || lowerMessage.includes('looking for')) {
+            return {
+                response: "Great! You can search for products using the search bar at the top of the page, or browse by category. We have thousands of products across electronics, clothing, beauty, home goods, and more. What type of product are you looking for?",
+                showQuickReplies: false
+            };
+        }
+
+        // Cart help
+        if (lowerMessage.includes('cart') || lowerMessage.includes('basket') || lowerMessage.includes('checkout') || lowerMessage.includes('buy')) {
+            const cartCount = cartManager.getItemCount();
+            if (cartCount > 0) {
+                return {
+                    response: `I see you have ${cartCount} item${cartCount > 1 ? 's' : ''} in your cart! You can view your cart by clicking the cart icon in the top right, or proceed to checkout. Would you like me to help you with anything specific about your cart?`,
+                    showQuickReplies: false
+                };
+            } else {
+                return {
+                    response: "Your cart is currently empty. Browse our products and click 'Add to Cart' to get started! We offer free shipping on orders over $50.",
+                    showQuickReplies: true
+                };
+            }
+        }
+
+        // Order and shipping
+        if (lowerMessage.includes('order') || lowerMessage.includes('shipping') || lowerMessage.includes('delivery') || lowerMessage.includes('track')) {
+            return {
+                response: "For order status and tracking, please sign in to your account and check your order history. Standard shipping takes 3-5 business days, and we offer free shipping on orders over $50. Express shipping is available for $9.99.",
+                showQuickReplies: false
+            };
+        }
+
+        // Returns and refunds
+        if (lowerMessage.includes('return') || lowerMessage.includes('refund') || lowerMessage.includes('exchange')) {
+            return {
+                response: "We offer a 30-day return policy on most items. Returns are free for defective items or our errors. For other returns, there's a small fee. Please contact our support team to initiate a return.",
+                showQuickReplies: false
+            };
+        }
+
+        // Account help
+        if (lowerMessage.includes('account') || lowerMessage.includes('login') || lowerMessage.includes('password') || lowerMessage.includes('sign in')) {
+            return {
+                response: "You can sign in or create an account using the 'Sign In' link in the top right corner. If you've forgotten your password, use the 'Forgot Password' link on the sign-in page.",
+                showQuickReplies: false
+            };
+        }
+
+        // Customer support
+        if (lowerMessage.includes('support') || lowerMessage.includes('help') || lowerMessage.includes('contact') || lowerMessage.includes('customer service')) {
+            return {
+                response: "I'm here to help! You can also reach our customer support team at support@shop.me or call us at 1-800-SHOP-ME. Our support hours are Monday-Friday, 9 AM - 6 PM EST.",
+                showQuickReplies: false
+            };
+        }
+
+        // Pricing and payment
+        if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('payment') || lowerMessage.includes('pay')) {
+            return {
+                response: "We accept all major credit cards, PayPal, and Apple Pay. Prices are clearly displayed on each product page, and we offer competitive pricing with frequent discounts and sales.",
+                showQuickReplies: false
+            };
+        }
+
+        // Greetings
+        if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey') || lowerMessage.includes('good morning') || lowerMessage.includes('good afternoon')) {
+            return {
+                response: "Hello! Welcome to Shop.me! I'm your AI shopping assistant. I can help you find products, navigate the site, assist with your cart, or answer any questions about our services. How can I help you today?",
+                showQuickReplies: true
+            };
+        }
+
+        // Goodbye
+        if (lowerMessage.includes('bye') || lowerMessage.includes('goodbye') || lowerMessage.includes('thank you') || lowerMessage.includes('thanks')) {
+            return {
+                response: "You're welcome! Thank you for shopping with Shop.me. Have a great day! If you need anything else, just click the chat icon anytime.",
+                showQuickReplies: false
+            };
+        }
+
+        // Default response
+        return {
+            response: "I'm here to help with shopping assistance, product recommendations, order support, and general questions about Shop.me. Could you please tell me more specifically what you're looking for help with?",
+            showQuickReplies: true
+        };
+    }
+
+    function getContextualQuickReplies(message) {
+        const lowerMessage = message.toLowerCase();
+
+        if (lowerMessage.includes('navigation') || lowerMessage.includes('find') || lowerMessage.includes('browse')) {
+            return [
+                { text: 'Show me Electronics', action: 'electronics' },
+                { text: 'Beauty Products', action: 'beauty' },
+                { text: 'Fashion Items', action: 'fashion' },
+                { text: 'Home & Kitchen', action: 'home' }
+            ];
+        }
+
+        if (lowerMessage.includes('cart') || lowerMessage.includes('buy')) {
+            return [
+                { text: 'View Cart', action: 'view-cart' },
+                { text: 'Checkout Help', action: 'checkout' },
+                { text: 'Shipping Info', action: 'shipping' },
+                { text: 'Return Policy', action: 'returns' }
+            ];
+        }
+
+        return [
+            { text: 'Help navigating', action: 'help' },
+            { text: 'Find products', action: 'products' },
+            { text: 'Cart assistance', action: 'cart' },
+            { text: 'Contact support', action: 'support' }
+        ];
     }
 }
 

@@ -147,10 +147,12 @@ function loadProducts() {
     const path = window.location.pathname;
     if (path.includes('electronics.html')) currentCategory = 'electronics';
     else if (path.includes('beauty.html')) currentCategory = 'beauty';
-    else if (path.includes('womens-clothing.html')) currentCategory = 'womens-clothing';
-    else if (path.includes('mens-clothing.html')) currentCategory = 'mens-clothing';
+    else if (path.includes('womens-fashion.html')) currentCategory = 'womens-clothing';
+    else if (path.includes('mens-fashion.html')) currentCategory = 'mens-clothing';
     else if (path.includes('home-kitchen.html')) currentCategory = 'home-kitchen';
-    else if (path.includes('footwear.html')) currentCategory = 'footwear';
+    else if (path.includes('sports.html')) currentCategory = 'footwear'; // map sports to footwear
+    else if (path.includes('girls-fashion.html')) currentCategory = 'womens-clothing'; // map to women
+    else if (path.includes('boys-fashion.html')) currentCategory = 'mens-clothing'; // map to men
     else currentCategory = null; // for other pages
 
     renderProducts();
@@ -536,7 +538,7 @@ function initChatbot() {
     const chatbotHTML = `
         <div id="chatbot-widget">
             <div id="chatbot-button">
-                <i class="ri-chat-1-line"></i>
+                💬
             </div>
             <div id="chatbot-container" style="display: none;">
                 <div id="chatbot-header">
@@ -546,7 +548,7 @@ function initChatbot() {
                 <div id="chatbot-messages"></div>
                 <div id="chatbot-input-container">
                     <input type="text" id="chatbot-input" placeholder="Ask me anything...">
-                    <button id="chatbot-send"><i class="ri-send-plane-line"></i></button>
+                    <button id="chatbot-send">Send</button>
                 </div>
             </div>
         </div>
@@ -562,7 +564,7 @@ function initChatbot() {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 1000;
+            z-index: 9999;
             font-family: Arial, sans-serif;
         }
         #chatbot-button {
@@ -643,14 +645,11 @@ function initChatbot() {
             background: #007bff;
             color: white;
             border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            border-radius: 20px;
+            padding: 10px 15px;
             margin-left: 10px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 14px;
         }
         #chatbot-close {
             background: none;

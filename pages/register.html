@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Shop.me</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h2>Create Your Account</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                    <div class="password-strength" id="passwordStrength"></div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="primary-button">Register</button>
+            </form>
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+            <div id="message"></div>
+        </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script>
+        // Password strength indicator
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strength = authManager.scorePassword(password);
+            const strengthDiv = document.getElementById('passwordStrength');
+
+            let strengthText = '';
+            let color = '';
+
+            if (strength < 2) {
+                strengthText = 'Weak';
+                color = 'red';
+            } else if (strength < 4) {
+                strengthText = 'Medium';
+                color = 'orange';
+            } else {
+                strengthText = 'Strong';
+                color = 'green';
+            }
+
+            strengthDiv.textContent = `Password Strength: ${strengthText}`;
+            strengthDiv.style.color = color;
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            const result = authManager.register(email, password, confirmPassword);
+            const messageDiv = document.getElementById('message');
+
+            if (result.success) {
+                messageDiv.style.color = 'green';
+                messageDiv.textContent = result.message;
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1000);
+            } else {
+                messageDiv.style.color = 'red';
+                messageDiv.textContent = result.message;
+            }
+        });
+
+        // Check if already logged in
+        if (authManager.getCurrentUser()) {
+            window.location.href = '../index.html';
+        }
+    </script>
+</body>
+</html>

@@ -135,38 +135,34 @@ document.querySelector(".modalclose").addEventListener("click", function () {
 	document.querySelector(".site").classList.remove("showmodal");
 });
 
-// Fetch products from Fake Store API
+// Load products from ProductGenerator
 let allProducts = [];
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentCategory = null;
 
-async function fetchProducts() {
-    try {
-        const response = await fetch('https://fakestoreapi.com/products');
-        allProducts = await response.json();
-        
-        // Determine current category based on page
-        const path = window.location.pathname;
-        if (path.includes('electronics.html')) currentCategory = 'electronics';
-        else if (path.includes('beauty.html')) currentCategory = 'jewelery';
-        else if (path.includes('womens-fashion.html')) currentCategory = "women's clothing";
-        else if (path.includes('mens-fashion.html')) currentCategory = "men's clothing";
-        else if (path.includes('all-departments.html')) currentCategory = null; // all
-        else currentCategory = null; // for other pages or non-API categories
-        
-        renderProducts();
-        updateCartDisplay();
-    } catch (error) {
-        console.error('Error fetching products:', error);
-    }
+function loadProducts() {
+    allProducts = productGenerator.getAllProducts();
+
+    // Determine current category based on page
+    const path = window.location.pathname;
+    if (path.includes('electronics.html')) currentCategory = 'electronics';
+    else if (path.includes('beauty.html')) currentCategory = 'beauty';
+    else if (path.includes('womens-clothing.html')) currentCategory = 'womens-clothing';
+    else if (path.includes('mens-clothing.html')) currentCategory = 'mens-clothing';
+    else if (path.includes('home-kitchen.html')) currentCategory = 'home-kitchen';
+    else if (path.includes('footwear.html')) currentCategory = 'footwear';
+    else currentCategory = null; // for other pages
+
+    renderProducts();
+    updateCartDisplay();
 }
 
 function renderProducts() {
-    let productsToShow = currentCategory ? allProducts.filter(p => p.category === currentCategory) : allProducts;
-    
+    let productsToShow = currentCategory ? productGenerator.getProductsByCategory(currentCategory) : productGenerator.getAllProducts();
+
     // If no products for category, show all or sample
     if (productsToShow.length === 0 && currentCategory) {
-        productsToShow = allProducts.slice(0, 8); // fallback
+        productsToShow = productGenerator.getAllProducts().slice(0, 8); // fallback
     }
     
     // Render featured products
@@ -302,15 +298,7 @@ function renderProducts() {
 }
 
 function addToCart(productId) {
-    const product = allProducts.find(p => p.id === productId);
-    if (product) {
-        const existingItem = cart.find(item => item.id === productId);
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({ ...product, quantity: 1 });
-        }
-        localStorage.setItem('cart', JSON.stringify(cart));
+    if (cartManager.addToCart(productId)) {
         updateCartDisplay();
         alert('Product added to cart!');
     }
@@ -319,7 +307,7 @@ function addToCart(productId) {
 function updateCartDisplay() {
     const cartCount = document.querySelector('.cart-count');
     if (cartCount) {
-        cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+        cartCount.textContent = cartManager.getItemCount();
     }
 
     const miniCart = document.querySelector('.mini-cart .products');
@@ -356,13 +344,13 @@ function updateStockBars() {
 }
 
 // Initialize
-fetchProducts();
+loadProducts();
 
 function renderSingleProduct() {
     const urlParams = new URLSearchParams(window.location.search);
-    const productId = parseInt(urlParams.get('id'));
-    if (productId && allProducts.length > 0) {
-        const product = allProducts.find(p => p.id === productId);
+    const productId = urlParams.get('id');
+    if (productId) {
+        const product = productGenerator.getProductById(productId);
         if (product) {
             // Update title
             document.title = product.title + ' - Shop.me';
@@ -425,59 +413,57 @@ if (window.location.pathname.includes('pages/page-single.html')) {
 }
 
 function renderCart() {
+    const cartItems = cartManager.getCartItems();
     const cartTable = document.querySelector('#cart-table tbody');
     if (cartTable) {
         cartTable.innerHTML = '';
-        let subtotal = 0;
-        cart.forEach((item, index) => {
+        cartItems.forEach(item => {
             const total = item.price * item.quantity;
-            subtotal += total;
             const rowHTML = `
                 <tr>
                     <td class="thumbnail-img">
-                        <a href="pages/page-single.html?id=${item.id}">
+                        <a href="page-single.html?id=${item.id}">
                             <img src="${item.image}" alt="${item.title}">
                         </a>
                     </td>
                     <td class="name-pr">
-                        <a href="pages/page-single.html?id=${item.id}">${item.title}</a>
+                        <a href="page-single.html?id=${item.id}">${item.title}</a>
                     </td>
                     <td class="price-pr">
                         <span>$${item.price}</span>
                     </td>
                     <td class="quantity-box">
-                        <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
+                        <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity('${item.id}', this.value)">
                     </td>
                     <td class="total-pr">
                         <span>$${total.toFixed(2)}</span>
                     </td>
                     <td class="remove-pr">
-                        <a href="#" onclick="removeFromCart(${index})"><i class="ri-delete-bin-line"></i></a>
+                        <a href="#" onclick="removeFromCart('${item.id}')"><i class="ri-delete-bin-line"></i></a>
                     </td>
                 </tr>
             `;
             cartTable.innerHTML += rowHTML;
         });
 
-        // Update totals
+        // Update totals using cartManager
+        const summary = cartManager.getCartSummary();
         const subtotalEl = document.querySelector('.cart-summary .subtotal span');
-        if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+        if (subtotalEl) subtotalEl.textContent = `$${summary.subtotal}`;
 
         const totalEl = document.querySelector('.cart-total span');
-        if (totalEl) totalEl.textContent = `$${subtotal.toFixed(2)}`;
+        if (totalEl) totalEl.textContent = `$${summary.total}`;
     }
 }
 
-function updateQuantity(index, quantity) {
-    cart[index].quantity = parseInt(quantity);
-    localStorage.setItem('cart', JSON.stringify(cart));
+function updateQuantity(productId, quantity) {
+    cartManager.updateQuantity(productId, parseInt(quantity));
     updateCartDisplay();
     renderCart();
 }
 
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    localStorage.setItem('cart', JSON.stringify(cart));
+function removeFromCart(productId) {
+    cartManager.removeFromCart(productId);
     updateCartDisplay();
     renderCart();
 }
@@ -752,6 +738,9 @@ function initChatbot() {
         }
     }
 }
+
+// Check authentication for protected pages
+authManager.checkAuthForPage();
 
 // Initialize chatbot
 initChatbot();

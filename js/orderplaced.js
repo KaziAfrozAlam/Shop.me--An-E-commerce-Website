@@ -12,7 +12,6 @@ httpRequest.onreadystatechange = function()
     {
         // convert JSON into JavaScript object
         jsonArray = JSON.parse(httpRequest.responseText)
-        console.log(jsonArray)    
         jsonArray.push(
             {
                 "id": (jsonArray.length)+1, "amount": 200,"product":["userOrder"]

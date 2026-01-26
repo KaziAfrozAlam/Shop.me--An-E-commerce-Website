@@ -142,7 +142,6 @@ class AssetManager {
 
         // In a real implementation, this would check file existence
         // For now, just log the expected structure
-        console.log('Expected asset structure:', requiredAssets);
     }
 }
 

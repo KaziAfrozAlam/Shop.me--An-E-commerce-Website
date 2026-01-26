@@ -1006,7 +1006,6 @@ class SearchAutocomplete {
     performSearch(query) {
         // For now, just log the search. In a real implementation,
         // this would redirect to search results page
-        console.log('Searching for:', query);
 
         // You could redirect to a search results page:
         // window.location.href = `/search?q=${encodeURIComponent(query)}`;

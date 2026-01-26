@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     // Perform login form submission logic here 
-    console.log("Login form submitted with email:", email, "and password:", password);
     // Reset form fields (optional)
     this.reset();
   });
@@ -43,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     // Perform signup form submission logic here 
-    console.log("Signup form submitted with name:", fullName, "email:", email, "and password:", password);
     // Reset form fields (optional)
     this.reset();
   });
@@ -55,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // Add click event listener to the "Continue" button
         continueButton.addEventListener("click", () => {
             // Add your logic for what should happen when "Continue" is clicked
-            console.log("Continue button clicked!");
             window.location.href = "http://127.0.0.1:5501/index.html";
             
 

@@ -1,0 +1,126 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    max-width: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+form label {
+    display: block;
+    margin-top: 15px;
+    color: #666;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form input[type="password"],
+form select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+form select {
+    -webkit-appearance: none;
+    appearance: none;
+    background: url('down-arrow.png') no-repeat right center;
+    background-size: 20px;
+}
+
+.phone-input {
+    display: flex;
+    align-items: center;
+}
+
+.country-code {
+    margin-right: 10px;
+}
+
+.mobile-number {
+    flex: 2;
+    margin-left: 1px;
+}
+
+form button {
+    margin-top: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+p {
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+a {
+    color: #0066c0;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+footer .links {
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+    margin: 25px auto 15px auto;
+}
+
+footer .links a {
+    font-size: 12px;
+}
+
+footer::before {
+    content: "";
+    display: flex;
+    justify-content: center;
+    width: 100;
+    margin: auto;
+    height: 44px;
+    margin-top: -40px;
+    border-top: 1px solid transparent;
+    box-shadow: 0 10px 15px -20px #333;
+}
+
+footer p {
+    font-size: 11px;
+    color: #555;
+    text-align: center;
+}

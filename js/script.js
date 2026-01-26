@@ -64,10 +64,44 @@ tClose.addEventListener("click", function () {
 });
 
 //show dpt menu
-const dptButton = document.querySelector(".dpt-cat .dpt-trigger"),
+const dptButton = document.querySelector(".dpt-cat .dpt-head"),
+	dptTrigger = document.querySelector(".dpt-cat .dpt-trigger"),
 	dptClass = document.querySelector(".site");
-dptButton.addEventListener("click", function () {
-	dptClass.classList.toggle("showdpt");
+if (dptButton) {
+	// Click functionality
+	dptButton.addEventListener("click", function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		dptClass.classList.toggle("showdpt");
+	});
+	
+	// Also handle click on the trigger link
+	if (dptTrigger) {
+		dptTrigger.addEventListener("click", function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			dptClass.classList.toggle("showdpt");
+		});
+	}
+	
+	// Hover functionality for desktop
+	dptButton.addEventListener("mouseenter", function () {
+		dptClass.classList.add("showdpt");
+	});
+	
+	const dptCat = document.querySelector(".dpt-cat");
+	if (dptCat) {
+		dptCat.addEventListener("mouseleave", function () {
+			dptClass.classList.remove("showdpt");
+		});
+	}
+}
+
+// Also handle clicks on the dpt-cat container to close menu when clicking outside
+document.addEventListener("click", function(e) {
+	if (!e.target.closest(".dpt-cat") && document.querySelector(".site").classList.contains("showdpt")) {
+		document.querySelector(".site").classList.remove("showdpt");
+	}
 });
 
 //product image slider

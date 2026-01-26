@@ -37,6 +37,16 @@ class AssetManager {
                 banner: 'banners/footwear.jpg',
                 icon: 'icons/shoes.png',
                 defaultImage: 'products/shoes_default.jpg'
+            },
+            'camera': {
+                banner: 'banners/camera.jpg',
+                icon: 'icons/camera.png',
+                defaultImage: 'products/camera_default.jpg'
+            },
+            'skin-care': {
+                banner: 'banners/skin-care.jpg',
+                icon: 'icons/beauty.png',
+                defaultImage: 'products/beauty_default.jpg'
             }
         };
     }

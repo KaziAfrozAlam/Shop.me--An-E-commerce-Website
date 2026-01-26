@@ -3563,9 +3563,8 @@ input[type="range"]::-webkit-slider-thumb {
 /* Tablet styles */
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     .hero-content {
-        flex-direction: row;
-        text-align: left;
-        gap: 40px;
+        justify-content: center;
+        text-align: center;
     }
 
     .hero-text h1 {
@@ -4025,12 +4024,16 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* Hero Banner Styles */
 .hero-banner {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%), url('../assets/banner/hero-shopping.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
-    padding: 80px 0;
+    padding: 120px 0;
     position: relative;
     overflow: hidden;
     margin-top: 20px;
+    min-height: 500px;
 }
 
 .hero-banner::before {
@@ -4046,18 +4049,20 @@ input[type="range"]::-webkit-slider-thumb {
 
 .hero-content {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 60px;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
     position: relative;
     z-index: 2;
+    text-align: center;
 }
 
 .hero-text {
     flex: 1;
-    max-width: 600px;
+    max-width: 800px;
+    text-align: center;
 }
 
 .hero-text h1 {
@@ -4327,6 +4332,21 @@ input[type="range"]::-webkit-slider-thumb {
     .trust-grid {
         gap: 20px;
     }
+
+/* Page Banner Styles */
+.page-banner {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.page-banner img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+}
 
     .trust-item {
         min-width: 120px;

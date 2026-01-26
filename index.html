@@ -1494,10 +1494,17 @@
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             // Display the result in the element with id="demo"
-            document.getElementById("days").innerHTML = days + "d";
-            document.getElementById("hours").innerHTML = hours + "h";
-            document.getElementById("minutes").innerHTML = minutes + "m";
-            document.getElementById("seconds").innerHTML = seconds + "s";
+            const daysElement = document.getElementById("days");
+            const hoursElement = document.getElementById("hours");
+            const minutesElement = document.getElementById("minutes");
+            const secondsElement = document.getElementById("seconds");
+
+            if (daysElement && hoursElement && minutesElement && secondsElement) {
+                daysElement.innerHTML = days + "d";
+                hoursElement.innerHTML = hours + "h";
+                minutesElement.innerHTML = minutes + "m";
+                secondsElement.innerHTML = seconds + "s";
+            }
 
             // If the count down is finished, write some text
             if (distance < 0) {

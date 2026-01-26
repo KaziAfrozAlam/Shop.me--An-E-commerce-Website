@@ -625,6 +625,11 @@ function initChatbot() {
     const chatbotSend = document.getElementById('chatbot-send');
     const chatbotMessages = document.getElementById('chatbot-messages');
 
+    // Check if chatbot elements exist
+    if (!chatbotToggle || !chatbotContainer || !chatbotClose || !chatbotInput || !chatbotSend || !chatbotMessages) {
+        return; // Exit if chatbot elements don't exist on this page
+    }
+
     let isOpen = false;
 
     // Toggle chatbot

@@ -195,6 +195,9 @@ function loadProducts() {
     else if (path.includes('sports.html')) currentCategory = 'footwear'; // map sports to footwear
     else if (path.includes('girls-fashion.html')) currentCategory = 'womens-clothing'; // map to women
     else if (path.includes('boys-fashion.html')) currentCategory = 'mens-clothing'; // map to men
+    else if (path.includes('health-household.html')) currentCategory = 'health-household';
+    else if (path.includes('pet-supplies.html')) currentCategory = 'pet-supplies';
+    else if (path.includes('best-seller.html')) currentCategory = 'best-seller';
     else currentCategory = null; // for other pages
 
     renderProducts();

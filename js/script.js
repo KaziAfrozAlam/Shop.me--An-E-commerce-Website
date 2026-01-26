@@ -859,3 +859,166 @@ authManager.checkAuthForPage();
 
 // Initialize chatbot
 initChatbot();
+
+// Enhanced Search with Autocomplete
+class SearchAutocomplete {
+    constructor() {
+        this.searchInput = document.getElementById('search-input');
+        this.suggestionsContainer = document.getElementById('search-suggestions');
+        this.searchData = [
+            // Categories
+            'Fashion', 'Electronics', 'Home & Kitchen', 'Beauty', 'Sports',
+            'Pet Supplies', 'Health & Household', 'Books', 'Toys', 'Automotive',
+
+            // Popular Products
+            'Wireless Headphones', 'Smart Watch', 'Coffee Maker', 'Blender',
+            'Running Shoes', 'Dress Shirt', 'Laptop', 'Smartphone', 'Camera',
+            'Kitchen Knife Set', 'Yoga Mat', 'Basketball', 'Pet Food', 'Vitamins',
+
+            // Brands (sample)
+            'Nike', 'Adidas', 'Apple', 'Samsung', 'Sony', 'KitchenAid',
+            'Levi\'s', 'H&M', 'Zara', 'Under Armour'
+        ];
+
+        this.init();
+    }
+
+    init() {
+        if (!this.searchInput) return;
+
+        this.searchInput.addEventListener('input', (e) => {
+            this.handleInput(e.target.value);
+        });
+
+        this.searchInput.addEventListener('focus', () => {
+            if (this.searchInput.value.length > 0) {
+                this.showSuggestions(this.filterSuggestions(this.searchInput.value));
+            }
+        });
+
+        this.searchInput.addEventListener('blur', () => {
+            // Delay hiding to allow clicking on suggestions
+            setTimeout(() => {
+                this.hideSuggestions();
+            }, 150);
+        });
+
+        // Handle keyboard navigation
+        this.searchInput.addEventListener('keydown', (e) => {
+            this.handleKeydown(e);
+        });
+    }
+
+    handleInput(value) {
+        if (value.length === 0) {
+            this.hideSuggestions();
+            return;
+        }
+
+        const suggestions = this.filterSuggestions(value);
+        this.showSuggestions(suggestions);
+    }
+
+    filterSuggestions(query) {
+        const lowerQuery = query.toLowerCase();
+        return this.searchData
+            .filter(item => item.toLowerCase().includes(lowerQuery))
+            .slice(0, 8); // Limit to 8 suggestions
+    }
+
+    showSuggestions(suggestions) {
+        if (suggestions.length === 0) {
+            this.hideSuggestions();
+            return;
+        }
+
+        this.suggestionsContainer.innerHTML = '';
+        suggestions.forEach((suggestion, index) => {
+            const item = document.createElement('div');
+            item.className = 'search-suggestion-item';
+            item.textContent = suggestion;
+            item.dataset.index = index;
+
+            item.addEventListener('click', () => {
+                this.selectSuggestion(suggestion);
+            });
+
+            this.suggestionsContainer.appendChild(item);
+        });
+
+        this.suggestionsContainer.classList.add('show');
+    }
+
+    hideSuggestions() {
+        this.suggestionsContainer.classList.remove('show');
+    }
+
+    selectSuggestion(suggestion) {
+        this.searchInput.value = suggestion;
+        this.hideSuggestions();
+        // Here you could trigger a search or redirect
+        this.performSearch(suggestion);
+    }
+
+    performSearch(query) {
+        // For now, just log the search. In a real implementation,
+        // this would redirect to search results page
+        console.log('Searching for:', query);
+
+        // You could redirect to a search results page:
+        // window.location.href = `/search?q=${encodeURIComponent(query)}`;
+    }
+
+    handleKeydown(e) {
+        const items = this.suggestionsContainer.querySelectorAll('.search-suggestion-item');
+        if (items.length === 0) return;
+
+        let currentIndex = -1;
+        const activeItem = this.suggestionsContainer.querySelector('.search-suggestion-item.active');
+        if (activeItem) {
+            currentIndex = parseInt(activeItem.dataset.index);
+        }
+
+        switch (e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                currentIndex = Math.min(currentIndex + 1, items.length - 1);
+                this.highlightSuggestion(currentIndex);
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                currentIndex = Math.max(currentIndex - 1, -1);
+                this.highlightSuggestion(currentIndex);
+                break;
+            case 'Enter':
+                e.preventDefault();
+                if (currentIndex >= 0) {
+                    const suggestion = items[currentIndex].textContent;
+                    this.selectSuggestion(suggestion);
+                } else {
+                    this.performSearch(this.searchInput.value);
+                }
+                break;
+            case 'Escape':
+                this.hideSuggestions();
+                this.searchInput.blur();
+                break;
+        }
+    }
+
+    highlightSuggestion(index) {
+        const items = this.suggestionsContainer.querySelectorAll('.search-suggestion-item');
+        items.forEach((item, i) => {
+            if (i === index) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+}
+
+// Initialize search autocomplete when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new SearchAutocomplete();
+});

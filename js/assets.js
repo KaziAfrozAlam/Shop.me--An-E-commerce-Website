@@ -2,7 +2,8 @@
 
 class AssetManager {
     constructor() {
-        this.basePath = '../assets/'; // Relative to pages/
+        // Dynamic base path based on current location
+        this.basePath = window.location.pathname.includes('/pages/') ? '../assets/' : 'assets/';
         this.fallbackImage = 'https://via.placeholder.com/300x300/e74c3c/ffffff?text=Image+Not+Found';
 
         // Category to asset mapping

@@ -511,11 +511,48 @@ class ProductGenerator {
             'womens-clothing': ['flattering design', 'soft fabric', 'trendy style', 'versatile look'],
             'beauty': ['long-lasting formula', 'natural ingredients', 'easy application', 'radiant finish'],
             'home-kitchen': ['easy to clean', 'durable construction', 'practical design', 'space-saving'],
-            'footwear': ['comfortable fit', 'durable sole', 'stylish design', 'lightweight material']
+            'footwear': ['comfortable fit', 'durable sole', 'stylish design', 'lightweight material'],
+            'makeup': ['long-lasting formula', 'natural ingredients', 'easy application', 'radiant finish'],
+            'hair-care': ['nourishing formula', 'silky smooth results', 'easy application', 'long-lasting effect'],
+            'fragrance': ['captivating scent', 'long-lasting fragrance', 'elegant packaging', 'versatile wear'],
+            'tools-accessories': ['professional quality', 'easy to use', 'durable construction', 'precise application'],
+            'skin-care': ['nourishing formula', 'gentle on skin', 'effective results', 'pleasant fragrance'],
+            'foot-hand-care': ['moisturizing formula', 'soothing effect', 'easy absorption', 'long-lasting hydration'],
+            'shave-hair-removal': ['smooth glide', 'gentle on skin', 'effective removal', 'comfortable use'],
+            'personal-care': ['gentle formula', 'effective cleaning', 'pleasant scent', 'daily use'],
+            'womens-shoes': ['comfortable fit', 'stylish design', 'durable construction', 'versatile wear'],
+            'womens-jewelry': ['elegant design', 'high-quality materials', 'versatile styling', 'timeless appeal'],
+            'womens-watches': ['precise timekeeping', 'elegant design', 'durable construction', 'stylish appeal'],
+            'womens-handbags': ['spacious design', 'stylish appearance', 'durable materials', 'practical features'],
+            'womens-accessories': ['stylish design', 'practical use', 'quality materials', 'versatile styling'],
+            'kitchen-dining': ['durable construction', 'easy maintenance', 'stylish design', 'practical use'],
+            'kitchen': ['efficient performance', 'easy operation', 'durable construction', 'modern design'],
+            'dining-room': ['elegant design', 'durable construction', 'comfortable use', 'stylish appearance'],
+            'home-decor': ['stylish design', 'quality materials', 'versatile placement', 'modern appeal'],
+            'furniture': ['durable construction', 'comfortable design', 'stylish appearance', 'practical use'],
+            'bedding': ['soft and comfortable', 'durable materials', 'easy care', 'stylish design'],
+            'bathroom': ['water-resistant design', 'easy maintenance', 'stylish appearance', 'practical features'],
+            'lighting': ['energy-efficient design', 'stylish appearance', 'adjustable settings', 'durable construction'],
+            'storage-organization': ['spacious design', 'durable materials', 'practical organization', 'stylish appearance'],
+            'cleaning-supplies': ['effective cleaning', 'easy application', 'pleasant scent', 'durable packaging'],
+            'laundry': ['effective cleaning', 'gentle on fabrics', 'pleasant scent', 'easy operation'],
+            'gardening': ['durable construction', 'effective performance', 'easy use', 'practical design'],
+            'outdoor-living': ['weather-resistant design', 'durable materials', 'stylish appearance', 'practical features'],
+            'sports-fitness': ['durable construction', 'comfortable design', 'effective performance', 'versatile use'],
+            'books-media': ['engaging content', 'quality production', 'informative material', 'entertaining format'],
+            'toys-games': ['engaging play', 'durable construction', 'educational value', 'fun design'],
+            'baby-kids': ['safe design', 'comfortable use', 'durable construction', 'engaging features'],
+            'health-household': ['effective formula', 'safe use', 'quality ingredients', 'practical design'],
+            'pet-supplies': ['durable construction', 'comfortable design', 'practical features', 'safe materials'],
+            'automotive': ['durable construction', 'effective performance', 'easy installation', 'reliable quality'],
+            'industrial-scientific': ['professional quality', 'durable construction', 'precise performance', 'reliable operation'],
+            'grocery': ['fresh ingredients', 'quality packaging', 'nutritious content', 'convenient use'],
+            'default': ['high quality', 'excellent value', 'reliable performance', 'satisfied customers']
         };
 
         const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
-        const feature = features[category][Math.floor(Math.random() * features[category].length)];
+        const categoryFeatures = features[category] || features['default'];
+        const feature = categoryFeatures[Math.floor(Math.random() * categoryFeatures.length)];
 
         return `${adj} ${productName} featuring ${feature}. Perfect for everyday use with excellent quality and value.`;
     }

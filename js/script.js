@@ -111,21 +111,25 @@ const divtoShow = ".mini-cart";
 const divPopup = document.querySelector(divtoShow);
 const divTrigger = document.querySelector(".cart-trigger");
 
-divTrigger.addEventListener("click", () => {
-	setTimeout(() => {
-		if (!divPopup.classList.contains("show")) {
-			divPopup.classList.add("show");
-		}
-	}, 250);
-});
+if (divTrigger && divPopup) {
+	divTrigger.addEventListener("click", () => {
+		setTimeout(() => {
+			if (!divPopup.classList.contains("show")) {
+				divPopup.classList.add("show");
+			}
+		}, 250);
+	});
+}
 
 //close by click outside
-document.addEventListener("click", (e) => {
-	const isClosest = e.target.closest(divtoShow);
-	if (!isClosest && divPopup.classList.contains("show")) {
-		divPopup.classList.remove("show");
-	}
-});
+if (divPopup) {
+	document.addEventListener("click", (e) => {
+		const isClosest = e.target.closest(divtoShow);
+		if (!isClosest && divPopup.classList.contains("show")) {
+			divPopup.classList.remove("show");
+		}
+	});
+}
 
 //show modal on load
 window.onload = function () {
